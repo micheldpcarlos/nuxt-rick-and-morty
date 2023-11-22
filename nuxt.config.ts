@@ -1,8 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
-  ssr: false, 
-  modules: ["@nuxtjs/tailwindcss", "nuxt-primevue"],
+  modules: ["@nuxtjs/tailwindcss", "nuxt-primevue", "@nuxtjs/color-mode"],
   primevue: {
     cssLayerOrder: "tailwind-base, primevue, tailwind-utilities",
     components: {
@@ -15,24 +14,20 @@ export default defineNuxtConfig({
     composables: {
       include: "*",
     },
-    importPT: { as: "Tailwind", from: "primevue/passthrough/tailwind" },
+    // importPT: { as: "Tailwind", from: "primevue/passthrough/tailwind" },
     options: {
       ripple: true,
     },
   },
-  css: [
-    "primeicons/primeicons.css",
-    "primevue/resources/themes/lara-dark-green/theme.css",
-  ],
-  // app: {
-  //   head: {
-  //     link: [
-  //       {
-  //         id: "theme-link",
-  //         rel: "stylesheet",
-  //         href: "themes/lara-light-green/theme.css",
-  //       },
-  //     ],
-  //   },
-  // },
+  css: ["primeicons/primeicons.css"],
+  colorMode: {
+    preference: "light",
+    fallback: "light",
+    hid: "nuxt-color-mode-script",
+    globalName: "__NUXT_COLOR_MODE__",
+    componentName: "ColorScheme",
+    classPrefix: "",
+    classSuffix: "",
+    storageKey: "nuxt-rick-and-morty-color-mode",
+  },
 });

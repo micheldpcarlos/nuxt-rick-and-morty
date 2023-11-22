@@ -5,7 +5,7 @@ const srcDir = resolve(__dirname, '/');
 // Had to add default configs from @nuxtjs/tailwindcss module and
 // add the configs to be aware of PrimeVue, otherwise the classes utilized in the theme will be removed as well.
 export default {
-  theme: {},
+  darkMode: 'class',
   plugins: [],
   content: [
     `${srcDir}/components/**/*.{vue,js,ts}`,
@@ -19,8 +19,7 @@ export default {
     `${srcDir}/Error.{js,ts,vue}`,
     `${srcDir}/error.{js,ts,vue}`,
     `${srcDir}/app.config.{js,ts}`,
-    "./index.html",
-    "./node_modules/primevue/**/*.{vue,js,ts,jsx,tsx}"
+    // "./node_modules/primevue/**/*.{vue,js,ts,jsx,tsx}"
   ]
 }
 

@@ -1,5 +1,10 @@
 <script setup>
 import { ref } from "vue";
+const { setInitialTheme } = useTheme();
+
+onMounted(() => {
+  setInitialTheme();
+});
 
 const items = ref([
   {
@@ -58,7 +63,7 @@ const items = ref([
 ]);
 </script>
 <template>
-  <div>
+  <div class="bg-white dark:bg-slate-800 h-screen">
     <Menubar :model="items">
       <template #start>
         <svg
@@ -109,7 +114,12 @@ const items = ref([
             type="text"
             class="w-8rem sm:w-auto"
           />
-          <Avatar image="https://picsum.photos/200/300" shape="circle" />
+          <Avatar
+            image="https://picsum.photos/200"
+            class="ml-2"
+            size="large"
+            shape="circle"
+          />
         </div>
       </template>
     </Menubar>
