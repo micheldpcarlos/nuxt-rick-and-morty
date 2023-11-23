@@ -38,4 +38,7 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true,
   },
+  svgo: {
+    autoImportPath: false,
+  },
 });
