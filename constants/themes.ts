@@ -11,6 +11,7 @@ export const defaultTheme: Theme = {
   id: "lara-light-purple",
 };
 
+// Thanks chatGPT for generating it as requested 🦾🤖
 export const themes: Theme[] = [
   {
     name: "Bootstrap4 - Light (Blue)",

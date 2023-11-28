@@ -1,5 +1,4 @@
 import { defaultTheme, type Theme } from "~/constants/themes";
-import { usePrimeVue } from "primevue/config";
 
 export const useTheme = () => {
   const LOCAL_STORAGE_KEY = "nuxt-rick-and-morty-theme";
@@ -9,7 +8,7 @@ export const useTheme = () => {
 
     return {
       theme: localStorageTheme ? JSON.parse(localStorageTheme) : defaultTheme,
-      isDefault: !!localStorageTheme,
+      isDefault: !localStorageTheme,
     };
   };
 

@@ -1,17 +1,30 @@
 <script setup lang="ts">
+import type { MenuItem } from "primevue/menuitem";
 import IconRickSanchez from "~/assets/rick-sanchez.svg";
 
-const items = ref([
+const items = ref<MenuItem[]>([
   {
     label: "Home",
     icon: "pi pi-home",
+    route: "/",
+  },
+  {
+    label: "Table",
+    icon: "pi pi-table",
+    route: "/table",
   },
 ]);
+
+const themeSelectorRef = ref();
+
+const showThemeSelector = (event: any) => {
+  themeSelectorRef.value.show(event);
+};
 </script>
 
 <template>
-  <div class="bg-white dark:bg-slate-800 h-screen">
-    <Menubar :model="items">
+  <div class="bg-[var(--surface-a)] h-screen overflow-auto">
+    <Menubar :model="items" class="rounded-none sticky top-0 z-10">
       <template #start>
         <div class="relative ml-2 mr-4">
           <IconRickSanchez filled class="text-4xl relative z-10" />
@@ -20,42 +33,44 @@ const items = ref([
           />
         </div>
       </template>
-      <template #item="{ item, props, hasSubmenu, root }">
-        <a v-ripple class="flex align-items-center" v-bind="props.action">
-          <span :class="item.icon" />
-          <span class="ml-2">{{ item.label }}</span>
-          <Badge
-            v-if="item.badge"
-            :class="{ 'ml-auto': !root, 'ml-2': root }"
-            :value="item.badge"
-          />
-          <span
-            v-if="item.shortcut"
-            class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1"
-            >{{ item.shortcut }}</span
+      <template #item="{ item, props }">
+        <router-link
+          v-if="item.route"
+          v-slot="{ href, navigate, isActive }"
+          :to="item.route"
+          custom
+        >
+          <a
+            v-ripple
+            :class="{ 'font-bold': isActive }"
+            :href="href"
+            v-bind="props.action"
+            @click="navigate"
           >
-          <i
-            v-if="hasSubmenu"
-            :class="[
-              'pi pi-angle-down text-primary',
-              { 'pi-angle-down ml-2': root, 'pi-angle-right ml-auto': !root },
-            ]"
-          ></i>
-        </a>
+            <span :class="item.icon" />
+            <span class="ml-2">{{ item.label }}</span>
+          </a>
+        </router-link>
       </template>
       <template #end>
-        <div class="flex align-items-center gap-2">
-          <InputText
-            placeholder="Search"
-            type="text"
-            class="w-8rem sm:w-auto"
+        <div class="flex items-center gap-2">
+          <Button
+            icon="pi pi-palette"
+            severity="primary"
+            text
+            rounded
+            aria-label="Themes"
+            @click="showThemeSelector"
           />
           <Avatar
             image="https://picsum.photos/200"
-            class="ml-2 mr-2"
-            size="large"
+            class="mr-2"
+            size="normal"
             shape="circle"
           />
+          <ClientOnly>
+            <ThemeSelector ref="themeSelectorRef" />
+          </ClientOnly>
         </div>
       </template>
     </Menubar>
