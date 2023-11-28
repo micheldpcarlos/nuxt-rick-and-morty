@@ -43,5 +43,8 @@ export default defineNuxtConfig({
   },
   app: {
     baseURL: "/nuxt-rick-and-morty/",
+    head: {
+      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    },
   },
 });
