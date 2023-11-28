@@ -41,4 +41,7 @@ export default defineNuxtConfig({
   svgo: {
     autoImportPath: false,
   },
+  app: {
+    baseURL: "/nuxt-rick-and-morty/",
+  },
 });
