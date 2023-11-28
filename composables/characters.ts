@@ -20,5 +20,5 @@ export const useCharacters = () => {
     loadingData.value = false;
   };
 
-  return { characters, currentInfo, getCharacters, currentPage };
+  return { characters, currentInfo, getCharacters, currentPage, loadingData };
 };

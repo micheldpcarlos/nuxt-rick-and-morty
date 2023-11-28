@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { PageState } from "primevue/paginator";
 
-const { characters, currentInfo, getCharacters, currentPage } = useCharacters();
+const { characters, currentInfo, getCharacters, currentPage, loadingData } =
+  useCharacters();
 getCharacters();
 
 const getNewPage = (event: PageState) => {
@@ -12,7 +13,7 @@ const getNewPage = (event: PageState) => {
 
 <template>
   <div class="p-4">
-    <div class="flex justify-between">
+    <div class="flex flex-col lg:flex-row justify-between">
       <h1 class="text-3xl font-bold text-center m-2">
         Rick and Morty Characters
       </h1>
@@ -25,9 +26,16 @@ const getNewPage = (event: PageState) => {
     <div
       class="grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 gap-4 mt-10"
     >
-      <CharacterCard v-for="character in characters" :character="character" />
+      <template v-if="!loadingData">
+        <CharacterCard
+          v-for="character in characters"
+          :character="character"
+          :key="character.id"
+        />
+      </template>
+      <template v-else>
+        <CharacterCardPlaceholder v-for="n in 20" :key="n" />
+      </template>
     </div>
   </div>
 </template>
-
-<style scoped></style>
