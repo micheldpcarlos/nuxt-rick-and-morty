@@ -1,73 +1,45 @@
 <script setup lang="ts">
 import { usePrimeVue } from "primevue/config";
 import { ref } from "vue";
-import { themes, type Theme } from "~/constants/themes";
 
-const { setTheme, getCurrentTheme } = useTheme();
+import { AgGridVue } from "ag-grid-vue3";
 
-const PrimeVue = usePrimeVue();
-const setPrimeTheme = (theme: Theme) => {
-  setTheme(theme, PrimeVue);
+const columnDefs = [
+  { field: "athlete" },
+  { field: "sport" },
+  { field: "age" },
+  { field: "year" },
+  { field: "date" },
+  { field: "gold" },
+  { field: "silver" },
+  { field: "bronze" },
+  { field: "total" },
+];
+
+let gridApi = ref(null);
+let times = 1;
+
+let rowData: any = ref(null);
+
+const onGridReady = (params: any) => {
+  fetch("https://www.ag-grid.com/example-assets/olympic-winners.json")
+    .then((resp) => resp.json())
+    .then((data) => (rowData.value = data));
 };
-
-const selectedItem = ref<Theme>();
-
-onMounted(() => {
-  selectedItem.value = getCurrentTheme().theme;
-});
 </script>
 
 <template>
-  <div>
-    <Card class="w-1/3 m-4">
-      <template #header>
-        <img
-          alt="user header"
-          src="https://v1.tailwindcss.com/img/card-top.jpg"
-        />
-      </template>
-      <template #title> Advanced Card </template>
-      <template #subtitle> Card subtitle </template>
-      <template #content>
-        <p class="m-0">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
-          sed consequuntur error repudiandae numquam deserunt quisquam repellat
-          libero asperiores earum nam nobis, culpa ratione quam perferendis
-          esse, cupiditate neque quas!
-        </p>
-      </template>
-      <template #footer>
-        <hr />
-        <h1>Color mode: {{ $colorMode.value }}</h1>
-        <Dropdown
-          v-model="selectedItem"
-          :options="themes"
-          optionLabel="name"
-          placeholder="Select Theme"
-          :maxSelectedLabels="3"
-          class="w-full md:w-20rem"
-          @change="setPrimeTheme($event.value)"
-        />
-      </template>
-    </Card>
-    <div class="m-4 flex gap-2">
-      <Button label="Primary" />
-      <Button label="Secondary" severity="secondary" />
-      <Button label="Success" severity="success" />
-      <Button label="Info" severity="info" />
-      <Button label="Warning" severity="warning" />
-      <Button label="Help" severity="help" />
-      <Button label="Danger" severity="danger" />
+  <div class="p-4 flex-1 flex flex-col">
+    <div class="flex flex-col lg:flex-row justify-between">
+      <h1 class="text-3xl font-bold text-center m-2">Rick and Morty Table</h1>
     </div>
-    <div class="m-4 flex gap-2">
-      <Button label="Primary" />
-      <Button label="Secondary" severity="secondary" />
-      <Button label="Success" severity="success" />
-      <Button label="Info" severity="info" />
-      <Button label="Warning" severity="warning" />
-      <Button label="Help" severity="help" />
-      <Button label="Danger" severity="danger" />
-    </div>
+    <ag-grid-vue
+      style="width: 100%; height: 100%"
+      class="ag-theme-alpine"
+      :columnDefs="columnDefs"
+      @grid-ready="onGridReady"
+      :rowData="rowData"
+    ></ag-grid-vue>
   </div>
 </template>
 

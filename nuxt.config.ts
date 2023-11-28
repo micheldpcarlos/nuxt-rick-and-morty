@@ -1,5 +1,5 @@
-import { resolve } from 'path';
-const srcDir = resolve(__dirname, '/');
+import { resolve } from "path";
+const srcDir = resolve(__dirname, "/");
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -27,7 +27,11 @@ export default defineNuxtConfig({
       ripple: true,
     },
   },
-  css: ["primeicons/primeicons.css"],
+  css: [
+    "primeicons/primeicons.css",
+    "ag-grid-community/styles/ag-grid.css",
+    "ag-grid-community/styles/ag-theme-alpine.css",
+  ],
   colorMode: {
     preference: "light",
     fallback: "light",

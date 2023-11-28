@@ -23,7 +23,7 @@ const showThemeSelector = (event: any) => {
 </script>
 
 <template>
-  <div class="bg-[var(--surface-a)] h-screen overflow-auto">
+  <div class="bg-[var(--surface-a)] h-screen overflow-auto flex flex-col">
     <Menubar :model="items" class="rounded-none sticky top-0 z-10">
       <template #start>
         <div class="relative ml-2 mr-4">

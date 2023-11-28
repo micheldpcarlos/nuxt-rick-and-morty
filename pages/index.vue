@@ -16,7 +16,7 @@ const showCharacter = (id: any) => {
 </script>
 
 <template>
-  <div class="p-4">
+  <div class="p-4 flex-1">
     <div class="flex flex-col lg:flex-row justify-between">
       <h1 class="text-3xl font-bold text-center m-2">
         Rick and Morty Characters
