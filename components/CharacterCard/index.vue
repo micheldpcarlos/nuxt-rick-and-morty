@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Character } from "~/types";
+import { pt } from "./cardPassThrough";
 
 defineProps<{
   character: Character;
@@ -7,7 +8,7 @@ defineProps<{
 </script>
 
 <template>
-  <Card>
+  <Card :pt="pt" v-bind="$attrs">
     <template #header>
       <img
         :alt="`${character.name} picture`"

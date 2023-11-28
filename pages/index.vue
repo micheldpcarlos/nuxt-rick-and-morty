@@ -9,6 +9,10 @@ const getNewPage = (event: PageState) => {
   currentPage.value = event.page + 1;
   getCharacters();
 };
+
+const showCharacter = (id: any) => {
+  console.log(id);
+};
 </script>
 
 <template>
@@ -31,6 +35,7 @@ const getNewPage = (event: PageState) => {
           v-for="character in characters"
           :character="character"
           :key="character.id"
+          @click="showCharacter(character.id)"
         />
       </template>
       <template v-else>
