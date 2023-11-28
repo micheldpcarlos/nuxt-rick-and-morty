@@ -1,3 +1,6 @@
+import { resolve } from 'path';
+const srcDir = resolve(__dirname, '/');
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
@@ -44,7 +47,8 @@ export default defineNuxtConfig({
   app: {
     baseURL: "/nuxt-rick-and-morty/",
     head: {
-      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+      title: "Rick and Morty - Nuxt",
+      link: [{ rel: "icon", type: "image/x-icon", href: "./favicon.ico" }],
     },
   },
 });
