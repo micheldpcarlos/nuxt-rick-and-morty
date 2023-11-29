@@ -21,7 +21,7 @@ export const useTheme = () => {
         {
           id: "theme-link",
           rel: "stylesheet",
-          href: `..${config.app.baseURL}${currentTheme.theme.path}`,
+          href: config.app.baseURL + currentTheme.theme.path,
         },
       ],
     });
