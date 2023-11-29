@@ -5,6 +5,7 @@ import type { Character } from "~/types";
 
 const { characters, currentInfo, getCharacters, currentPage, loadingData } =
   useCharacters();
+  
 getCharacters();
 
 const getNewPage = (event: PageState) => {
