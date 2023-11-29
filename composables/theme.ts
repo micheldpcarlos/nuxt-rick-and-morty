@@ -14,12 +14,14 @@ export const useTheme = () => {
 
   const setInitialTheme = () => {
     const currentTheme = getCurrentTheme();
+    const config = useRuntimeConfig();
+
     useHead({
       link: [
         {
           id: "theme-link",
           rel: "stylesheet",
-          href: currentTheme.theme.path,
+          href: `..${config.app.baseURL}${currentTheme.theme.path}`,
         },
       ],
     });
