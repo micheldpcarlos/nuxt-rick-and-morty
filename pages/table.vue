@@ -1,30 +1,70 @@
 <script setup lang="ts">
-import { usePrimeVue } from "primevue/config";
 import { ref } from "vue";
 
+// Explicitly import to use inside cellRenderer
+import AgGridAvatar from "~/components/AgGrid/Avatar.vue";
+
 import { AgGridVue } from "ag-grid-vue3";
+import type { Character } from "~/types";
+
+const stringComparator = (valueA: string, valueB: string) => {
+  if (valueA == valueB) return 0;
+  return valueA > valueB ? 1 : -1;
+};
+
+const dateComparator = (valueA: string, valueB: string) => {
+  return new Date(valueA).getTime() - new Date(valueB).getTime();
+};
+
+const dateFormatter = (date: any) => {
+  return new Date(date.value).toLocaleString();
+};
+
+const defaultColDef = {
+  sortable: true,
+  filter: true,
+  resizable: true,
+  headerClass: "text-[var(--primary-color)]",
+};
 
 const columnDefs = [
-  { field: "athlete" },
-  { field: "sport" },
-  { field: "age" },
-  { field: "year" },
-  { field: "date" },
-  { field: "gold" },
-  { field: "silver" },
-  { field: "bronze" },
-  { field: "total" },
+  {
+    headerName: "",
+    field: "image",
+    cellRenderer: AgGridAvatar,
+    cellRendererParams: {
+      color: "guinnessBlack",
+    },
+    width: 70,
+    sortable: false,
+    filter: false,
+    resizable: false,
+    suppressSizeToFit: true,
+  },
+  { field: "name", comparator: stringComparator },
+  { field: "species", comparator: stringComparator },
+  { field: "status", comparator: stringComparator },
+  { field: "type", comparator: stringComparator },
+  { field: "gender", comparator: stringComparator },
+  {
+    field: "created",
+    comparator: dateComparator,
+    valueFormatter: dateFormatter,
+  },
 ];
 
-let gridApi = ref(null);
-let times = 1;
+// null is needed here to show "Loading" in the table
+const rowData = ref<Character[] | null>(null);
 
-let rowData: any = ref(null);
+// fetch JSON
+const onGridReady = async (event: any) => {
+  const data = await $fetch("/data/characters.json");
 
-const onGridReady = (params: any) => {
-  fetch("https://www.ag-grid.com/example-assets/olympic-winners.json")
-    .then((resp) => resp.json())
-    .then((data) => (rowData.value = data));
+  if (data) {
+    rowData.value = data as Character[];
+  }
+
+  event.api.sizeColumnsToFit();
 };
 </script>
 
@@ -36,11 +76,29 @@ const onGridReady = (params: any) => {
     <ag-grid-vue
       style="width: 100%; height: 100%"
       class="ag-theme-alpine"
-      :columnDefs="columnDefs"
       @grid-ready="onGridReady"
+      :defaultColDef="defaultColDef"
+      :columnDefs="columnDefs"
       :rowData="rowData"
+      :rowDragEntireRow="true"
     ></ag-grid-vue>
   </div>
 </template>
 
-<style scoped></style>
+<style lang="scss">
+// custom agTable variables
+.ag-theme-alpine {
+  --ag-alpine-active-color: var(--primary-color);
+  --ag-row-hover-color: color-mix(
+    in srgb,
+    var(--primary-color) 15%,
+    transparent
+  );
+  --ag-background-color: var(--surface-a);
+  --ag-odd-row-background-color: var(--surface-b);
+  --ag-data-color: var(--text-color);
+  --ag-header-foreground-color: var(--primary-color);
+  --ag-header-background-color: var(--surface-ground);
+  --surface-border: var(--surface-border);
+}
+</style>
