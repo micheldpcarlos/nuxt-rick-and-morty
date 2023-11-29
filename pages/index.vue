@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { PageState } from "primevue/paginator";
+import { useToast } from "primevue/usetoast";
+import type { Character } from "~/types";
 
 const { characters, currentInfo, getCharacters, currentPage, loadingData } =
   useCharacters();
@@ -10,8 +12,16 @@ const getNewPage = (event: PageState) => {
   getCharacters();
 };
 
-const showCharacter = (id: any) => {
-  console.log(id);
+const toast = useToast();
+const showCharacter = (character: Character) => {
+  const message = `${character.species}`;
+
+  toast.add({
+    severity: "info",
+    summary: `${character.id} - ${character.name}`,
+    detail: message,
+    life: 3000,
+  });
 };
 </script>
 
@@ -35,7 +45,7 @@ const showCharacter = (id: any) => {
           v-for="character in characters"
           :character="character"
           :key="character.id"
-          @click="showCharacter(character.id)"
+          @click="showCharacter(character)"
         />
       </template>
       <template v-else>

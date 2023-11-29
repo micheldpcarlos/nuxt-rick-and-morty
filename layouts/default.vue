@@ -75,5 +75,6 @@ const showThemeSelector = (event: any) => {
       </template>
     </Menubar>
     <slot />
+    <Toast />
   </div>
 </template>
