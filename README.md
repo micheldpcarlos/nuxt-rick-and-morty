@@ -1,6 +1,15 @@
-# Nuxt 3 Minimal Starter
+# Exploring Nuxt 3, Tailwind, PrimeVue, and AgGrid
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Diving into the world of Nuxt 3, Tailwind, PrimeVue, and AgGrid, I took on the challenge of building a Rick and Morty app. Along the way, I documented my thoughts to share the experience.
+
+You can find detailed notes about the project on [this Notion page](https://www.notion.so/micheldpcarlos/Nuxt-3-Tailwind-PrimeVue-and-AgGrid-884f1ccd35b44247997aed33bf289a49).
+
+The completed project is deployed and accessible on [GitHub Pages](https://micheldpcarlos.github.io/nuxt-rick-and-morty/).
+
+## TL;DR
+After experimenting with this stack, I've found it to be a great fit for projects that capitalize on Nuxt's advantages, have a team proficient in Tailwind and PrimeVue, and entail managing substantial data on the front end. It's important to carefully consider tradeoffs for each scenario, but overall, this combination proves ideal for projects with these specific requirements.
+
+
 
 ## Setup
 
@@ -37,39 +46,3 @@ yarn dev
 # bun
 bun run dev
 ```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
